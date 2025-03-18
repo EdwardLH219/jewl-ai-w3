@@ -11,6 +11,21 @@ import {
   LinkedInIcon 
 } from '@/utils/integration-icons';
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
+import { Button } from "@/components/ui/button";
+
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -143,143 +158,162 @@ export default function Layout({ children }: LayoutProps) {
             <ul className="flex space-x-8">
               <li><a href="#features" className="nav-link font-medium">Features</a></li>
               <li><a href="#use-cases" className="nav-link font-medium">Use Cases</a></li>
-              <li className="relative">
-                <a 
-                  href="#" 
-                  className="nav-link font-medium flex items-center gap-1" 
-                  onClick={toggleIntegrationsMenu}
-                >
-                  Integrations
-                  <DropdownIcon isOpen={showIntegrationsMenu} />
-                </a>
-                
-                {/* Integrations dropdown menu */}
-                <div className={`absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 ${showIntegrationsMenu ? 'block' : 'hidden'}`}>
-                  <div className="px-4 py-2 border-b">
-                    <h4 className="text-sm font-semibold text-gray-800">Repositories</h4>
-                    <ul className="mt-2 space-y-2">
-                      <li>
-                        <a href="#" className="flex items-center text-sm text-gray-700 hover:bg-gray-100 px-2 py-1 rounded">
-                          <span className="w-5 h-5 mr-2 flex-shrink-0">
-                            <DropboxIcon size={20} className="text-[#0061FF]" />
-                          </span>
-                          Dropbox
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="flex items-center text-sm text-gray-700 hover:bg-gray-100 px-2 py-1 rounded">
-                          <span className="w-5 h-5 mr-2 flex-shrink-0">
-                            <SharePointIcon size={20} className="text-[#0078D4]" />
-                          </span>
-                          SharePoint
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="px-4 py-2">
-                    <h4 className="text-sm font-semibold text-gray-800">Chat Interfaces</h4>
-                    <ul className="mt-2 space-y-2">
-                      <li>
-                        <a href="#" className="flex items-center text-sm text-gray-700 hover:bg-gray-100 px-2 py-1 rounded">
-                          <span className="w-5 h-5 mr-2 flex-shrink-0">
-                            <WhatsAppIcon size={20} className="text-[#25D366]" />
-                          </span>
-                          WhatsApp
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="flex items-center text-sm text-gray-700 hover:bg-gray-100 px-2 py-1 rounded">
-                          <span className="w-5 h-5 mr-2 flex-shrink-0">
-                            {icons.slack({ className: 'w-full h-full' })}
-                          </span>
-                          Slack
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+              <li>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="nav-link font-medium flex items-center gap-1">
+                    Integrations
+                    <DropdownIcon isOpen={showIntegrationsMenu} />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-64">
+                    <div className="px-4 py-2 border-b">
+                      <h4 className="text-sm font-semibold text-gray-800">Repositories</h4>
+                      <div className="mt-2 space-y-2">
+                        <DropdownMenuItem>
+                          <a href="#" className="flex items-center text-sm text-gray-700 w-full px-2 py-1 rounded">
+                            <span className="w-5 h-5 mr-2 flex-shrink-0">
+                              <DropboxIcon size={20} className="text-[#0061FF]" />
+                            </span>
+                            Dropbox
+                          </a>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <a href="#" className="flex items-center text-sm text-gray-700 w-full px-2 py-1 rounded">
+                            <span className="w-5 h-5 mr-2 flex-shrink-0">
+                              <SharePointIcon size={20} className="text-[#0078D4]" />
+                            </span>
+                            SharePoint
+                          </a>
+                        </DropdownMenuItem>
+                      </div>
+                    </div>
+                    <div className="px-4 py-2 border-b">
+                      <h4 className="text-sm font-semibold text-gray-800">Communication</h4>
+                      <div className="mt-2 space-y-2">
+                        <DropdownMenuItem>
+                          <a href="#" className="flex items-center text-sm text-gray-700 w-full px-2 py-1 rounded">
+                            <span className="w-5 h-5 mr-2 flex-shrink-0">
+                              <SlackIcon size={20} className="text-[#4A154B]" />
+                            </span>
+                            Slack
+                          </a>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <a href="#" className="flex items-center text-sm text-gray-700 w-full px-2 py-1 rounded">
+                            <span className="w-5 h-5 mr-2 flex-shrink-0">
+                              <WhatsAppIcon size={20} className="text-[#25D366]" />
+                            </span>
+                            WhatsApp
+                          </a>
+                        </DropdownMenuItem>
+                      </div>
+                    </div>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </li>
               <li><a href="#contact" className="nav-link font-medium">Contact</a></li>
             </ul>
           </nav>
           
-          {/* Mobile hamburger button */}
-          <button 
-            className="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-            data-testid="hamburger-button"
-          >
-            <span className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-            <span className={`block w-6 h-0.5 bg-black transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-            <span className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-          </button>
-        </div>
-        
-        {/* Mobile menu */}
-        <div 
-          className={`md:hidden ${isMenuOpen ? 'max-h-96' : 'max-h-0'} overflow-hidden transition-all duration-300 ease-in-out`}
-          data-testid="mobile-menu"
-        >
-          <nav className="container mx-auto py-4 px-6">
-            <ul className="flex flex-col space-y-4">
-              <li><a href="#features" className="nav-link font-medium block py-2" onClick={handleLinkClick}>Features</a></li>
-              <li><a href="#use-cases" className="nav-link font-medium block py-2" onClick={handleLinkClick}>Use Cases</a></li>
-              <li>
-                <div className="py-2">
-                  <a href="#" className="nav-link font-medium flex items-center justify-between" onClick={toggleIntegrationsMenu}>
-                    <span>Integrations</span>
-                    <DropdownIcon isOpen={showIntegrationsMenu} />
-                  </a>
-                  <div className={`mt-2 pl-4 space-y-2 border-l border-gray-200 ${showIntegrationsMenu ? 'block' : 'hidden'}`}>
-                    <div className="mb-2">
-                      <h4 className="text-sm font-semibold text-gray-800 mb-1">Repositories</h4>
-                      <ul className="space-y-1">
-                        <li>
-                          <a href="#" className="flex items-center text-sm text-gray-700 hover:text-black py-1">
-                            <span className="w-4 h-4 mr-2 flex-shrink-0">
-                              {icons.dropbox({ className: 'w-full h-full' })}
+          <div className="hidden md:block">
+            <Button asChild variant="outline" className="mr-4">
+              <a href="#contact">Get Early Access</a>
+            </Button>
+          </div>
+          
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right">
+                <div className="py-4">
+                  <ul className="space-y-4">
+                    <li><a href="#features" className="block py-2 text-lg" onClick={handleLinkClick}>Features</a></li>
+                    <li><a href="#use-cases" className="block py-2 text-lg" onClick={handleLinkClick}>Use Cases</a></li>
+                    <li>
+                      <button
+                        className="flex items-center justify-between w-full py-2 text-lg"
+                        onClick={toggleIntegrationsMenu}
+                      >
+                        <span>Integrations</span>
+                        <DropdownIcon isOpen={showIntegrationsMenu} />
+                      </button>
+                      {showIntegrationsMenu && (
+                        <div className="pl-4 mt-2 space-y-2">
+                          <h4 className="text-sm font-semibold text-gray-600 mt-2">Repositories</h4>
+                          <a
+                            href="#"
+                            className="flex items-center py-1 text-sm text-gray-700"
+                            onClick={handleLinkClick}
+                          >
+                            <span className="w-5 h-5 mr-2">
+                              <DropboxIcon size={20} className="text-[#0061FF]" />
                             </span>
                             Dropbox
                           </a>
-                        </li>
-                        <li>
-                          <a href="#" className="flex items-center text-sm text-gray-700 hover:text-black py-1">
-                            <span className="w-4 h-4 mr-2 flex-shrink-0">
-                              {icons.sharepoint({ className: 'w-full h-full' })}
+                          <a
+                            href="#"
+                            className="flex items-center py-1 text-sm text-gray-700"
+                            onClick={handleLinkClick}
+                          >
+                            <span className="w-5 h-5 mr-2">
+                              <SharePointIcon size={20} className="text-[#0078D4]" />
                             </span>
                             SharePoint
                           </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-semibold text-gray-800 mb-1">Chat Interfaces</h4>
-                      <ul className="space-y-1">
-                        <li>
-                          <a href="#" className="flex items-center text-sm text-gray-700 hover:text-black py-1">
-                            <span className="w-4 h-4 mr-2 flex-shrink-0">
-                              {icons.whatsapp({ className: 'w-full h-full' })}
-                            </span>
-                            WhatsApp
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" className="flex items-center text-sm text-gray-700 hover:text-black py-1">
-                            <span className="w-4 h-4 mr-2 flex-shrink-0">
-                              {icons.slack({ className: 'w-full h-full' })}
+                          
+                          <h4 className="text-sm font-semibold text-gray-600 mt-4">Communication</h4>
+                          <a
+                            href="#"
+                            className="flex items-center py-1 text-sm text-gray-700"
+                            onClick={handleLinkClick}
+                          >
+                            <span className="w-5 h-5 mr-2">
+                              <SlackIcon size={20} className="text-[#4A154B]" />
                             </span>
                             Slack
                           </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                          <a
+                            href="#"
+                            className="flex items-center py-1 text-sm text-gray-700"
+                            onClick={handleLinkClick}
+                          >
+                            <span className="w-5 h-5 mr-2">
+                              <WhatsAppIcon size={20} className="text-[#25D366]" />
+                            </span>
+                            WhatsApp
+                          </a>
+                        </div>
+                      )}
+                    </li>
+                    <li><a href="#contact" className="block py-2 text-lg" onClick={handleLinkClick}>Contact</a></li>
+                    <li className="pt-4">
+                      <Button asChild className="w-full">
+                        <a href="#contact" onClick={handleLinkClick}>Get Early Access</a>
+                      </Button>
+                    </li>
+                  </ul>
                 </div>
-              </li>
-              <li><a href="#contact" className="nav-link font-medium block py-2" onClick={handleLinkClick}>Contact</a></li>
-            </ul>
-          </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </header>
       

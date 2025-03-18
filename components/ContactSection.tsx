@@ -1,64 +1,60 @@
 import React, { useState } from 'react';
 import { contactFormSchema, validateForm, type ContactFormData } from '@/utils/validation';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 
 interface FormStatusState {
   submitted: boolean;
   error: boolean;
   loading: boolean;
-  validationErrors?: Record<string, string>;
 }
 
 export default function ContactSection() {
-  const [formState, setFormState] = useState<ContactFormData>({
-    name: '',
-    email: '',
-    message: ''
-  });
-  
   const [formStatus, setFormStatus] = useState<FormStatusState>({
     submitted: false,
     error: false,
     loading: false
   });
   
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value
-    });
-  };
+  // Convert our existing schema to a zod schema
+  const formSchema = z.object({
+    name: z.string().min(1, { message: "Name is required" }),
+    email: z.string().email({ message: "Please enter a valid email address" }),
+    message: z.string().min(20, { message: "Message must be at least 20 characters" })
+  });
   
-  const validateContactForm = (): boolean => {
-    const result = validateForm(contactFormSchema, formState);
-    
-    if (result.success) {
-      setFormStatus(prev => ({ ...prev, validationErrors: undefined }));
-      return true;
-    } else {
-      setFormStatus(prev => ({ ...prev, validationErrors: result.errors }));
-      return false;
-    }
-  };
+  // Create form with react-hook-form and zod validation
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: ""
+    },
+  });
   
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validate form before submission
-    const result = validateForm(contactFormSchema, formState);
-    if (!result.success) {
-      setFormStatus(prev => ({ ...prev, validationErrors: result.errors }));
-      return;
-    }
-    
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       // Set loading state
       setFormStatus(prev => ({ ...prev, loading: true }));
       
       // For actual Netlify deployment, this would work automatically
       // For local development, this is a placeholder
-      console.log('Form submitted:', formState);
+      console.log('Form submitted:', values);
       
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -67,34 +63,20 @@ export default function ContactSection() {
       setFormStatus({
         submitted: true,
         error: false,
-        loading: false,
-        validationErrors: undefined
+        loading: false
       });
       
       // Reset form
-      setFormState({
-        name: '',
-        email: '',
-        message: ''
-      });
+      form.reset();
     } catch (error) {
       console.error('Error submitting form:', error);
       setFormStatus({
         submitted: false,
         error: true,
-        loading: false,
-        validationErrors: undefined
+        loading: false
       });
     }
   };
-
-  // Helper to check if a field has an error
-  const hasError = (field: keyof ContactFormData): boolean => 
-    !!formStatus.validationErrors?.[field];
-  
-  // Helper to get the error message for a field
-  const getErrorMessage = (field: keyof ContactFormData): string => 
-    formStatus.validationErrors?.[field] || '';
 
   if (formStatus.submitted) {
     return (
@@ -121,86 +103,107 @@ export default function ContactSection() {
           </p>
         </div>
         <div className="max-w-lg mx-auto">
-          <form onSubmit={handleSubmit} className="space-y-6" method="POST" name="contact" data-netlify="true">
-            <Card className="rounded-lg transition-all p-8 bg-white/10 backdrop-blur-sm border border-white/20">
-              <input type="hidden" name="form-name" value="contact" />
-              <div>
-                <label htmlFor="name" className="block mb-2 font-medium text-white">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formState.name}
-                  onChange={handleChange}
-                  className={`w-full p-3 bg-white/5 border ${
-                    hasError('name') ? 'border-red-500' : 'border-white/20'
-                  } rounded-lg focus:outline-none focus:ring-2 focus:ring-white/30 text-white`}
-                  required
-                  aria-invalid={hasError('name')}
-                />
-                {hasError('name') && (
-                  <p className="mt-1 text-sm text-red-500" role="alert">
-                    {getErrorMessage('name')}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label htmlFor="email" className="block mb-2 font-medium text-white">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  className={`w-full p-3 bg-white/5 border ${
-                    hasError('email') ? 'border-red-500' : 'border-white/20'
-                  } rounded-lg focus:outline-none focus:ring-2 focus:ring-white/30 text-white`}
-                  required
-                  aria-invalid={hasError('email')}
-                />
-                {hasError('email') && (
-                  <p className="mt-1 text-sm text-red-500" role="alert">
-                    {getErrorMessage('email')}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label htmlFor="message" className="block mb-2 font-medium text-white">
-                  How would you use jewl.ai?
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formState.message}
-                  onChange={handleChange}
-                  rows={5}
-                  className={`w-full p-3 bg-white/5 border ${
-                    hasError('message') ? 'border-red-500' : 'border-white/20'
-                  } rounded-lg focus:outline-none focus:ring-2 focus:ring-white/30 text-white`}
-                  required
-                  aria-invalid={hasError('message')}
-                />
-                {hasError('message') && (
-                  <p className="mt-1 text-sm text-red-500" role="alert">
-                    {getErrorMessage('message')}
-                  </p>
-                )}
-              </div>
-              <Button
-                type="submit"
-                variant="primary"
-                className="w-full"
-                disabled={formStatus.loading}
-                isLoading={formStatus.loading}
-              >
-                Request Access
-              </Button>
-            </Card>
-          </form>
+          <Card className="bg-white/10 backdrop-blur-sm border-white/20">
+            <CardContent className="p-8">
+              <Form {...form}>
+                <form 
+                  onSubmit={form.handleSubmit(handleSubmit)} 
+                  className="space-y-6" 
+                  method="POST" 
+                  name="contact" 
+                  data-netlify="true"
+                >
+                  <input type="hidden" name="form-name" value="contact" />
+                  
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white">Name</FormLabel>
+                        <FormControl>
+                          <Input 
+                            {...field}
+                            className="bg-white/5 border-white/20 text-white focus-visible:ring-white/30"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white">Email</FormLabel>
+                        <FormControl>
+                          <Input 
+                            {...field}
+                            type="email"
+                            className="bg-white/5 border-white/20 text-white focus-visible:ring-white/30"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white">How would you use jewl.ai?</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            {...field}
+                            rows={5}
+                            className="bg-white/5 border-white/20 text-white focus-visible:ring-white/30"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    disabled={formStatus.loading}
+                    variant="default"
+                  >
+                    {formStatus.loading ? (
+                      <>
+                        <svg 
+                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-current" 
+                          xmlns="http://www.w3.org/2000/svg" 
+                          fill="none" 
+                          viewBox="0 0 24 24"
+                        >
+                          <circle 
+                            className="opacity-25" 
+                            cx="12" 
+                            cy="12" 
+                            r="10" 
+                            stroke="currentColor" 
+                            strokeWidth="4"
+                          ></circle>
+                          <path 
+                            className="opacity-75" 
+                            fill="currentColor" 
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        <span>Processing...</span>
+                      </>
+                    ) : "Request Access"}
+                  </Button>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
