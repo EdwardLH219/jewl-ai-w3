@@ -7,11 +7,19 @@ A modern, responsive website for jewl.ai, an AI-powered document assistant that 
 - Next.js
 - TypeScript
 - Tailwind CSS
+- Shadcn UI Components
 - Zod for form validation
 
 ## Recent Optimizations
 
 The codebase has been optimized with the following improvements:
+
+### Project Structure Cleanup
+
+- Consolidated test files into organized directories
+- Removed redundant nested directories
+- Fixed TypeScript configuration and type definitions
+- Eliminated duplicate configuration files
 
 ### TypeScript Migration
 
@@ -36,23 +44,31 @@ The codebase has been optimized with the following improvements:
 
 ```
 jewl-ai-website/
-├── components/         # React components
-│   ├── ui/             # Reusable UI components
-│   ├── Layout.tsx      # Main layout component
-│   ├── Features.tsx    # Features section
+├── components/             # React components
+│   ├── ui/                 # Reusable UI components (shadcn)
+│   ├── lib/                # Component utility functions
+│   ├── types/              # Component type definitions
+│   ├── Layout.tsx          # Main layout component
+│   ├── Features.tsx        # Features section
 │   └── ContactSection.tsx  # Contact form section
-├── pages/              # Next.js pages
-│   ├── _app.tsx        # App wrapper
-│   └── index.tsx       # Homepage
-├── public/             # Static assets
-│   ├── icons/          # Integration icons
-│   └── logo-*.png      # Logo files
-├── styles/             # CSS styles
-│   └── globals.css     # Global styles with Tailwind
-├── utils/              # Utility functions
-│   ├── validation.ts   # Form validation utilities
+├── pages/                  # Next.js pages
+│   ├── _app.tsx            # App wrapper
+│   └── index.tsx           # Homepage
+├── public/                 # Static assets
+│   ├── icons/              # Integration icons
+│   └── logo-*.png          # Logo files
+├── styles/                 # CSS styles
+│   └── globals.css         # Global styles with Tailwind
+├── utils/                  # Utility functions
+│   ├── validation.ts       # Form validation utilities
 │   └── integration-icons.tsx  # Icon components
-└── README.md           # Project documentation
+├── lib/                    # Shared library code
+├── types/                  # Global type definitions
+├── consolidated-tests/     # Test files
+│   ├── components/         # Component tests
+│   ├── pages/              # Page tests
+│   └── utils/              # Utility tests
+└── README.md               # Project documentation
 ```
 
 ## Getting Started
@@ -69,12 +85,14 @@ jewl-ai-website/
 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-## Build and Deploy
+## Available Scripts
 
-```bash
-npm run build
-npm run start
-```
+- `npm run dev` - Start the development server
+- `npm run build` - Build for production
+- `npm run start` - Start the production server
+- `npm run lint` - Run linting
+- `npm test` - Run tests
+- `npm run type-check` - Check types
 
 ## Features
 
@@ -84,38 +102,16 @@ npm run start
 - Integration showcases for repositories and chat interfaces
 - Optimized for accessibility and performance
 
-## File Structure
-
-```
-jewl-ai-website/
-├── components/          # Reusable UI components
-│   ├── ContactSection.js
-│   ├── Features.js
-│   └── Layout.js
-├── pages/               # Next.js pages
-│   ├── _app.js
-│   └── index.js
-├── public/              # Static assets
-│   ├── logo-black.png
-│   └── logo-white.png
-├── styles/              # CSS and styling
-│   └── globals.css
-├── __tests__/           # Test files
-│   ├── contentConsistency.test.js
-│   ├── features.test.js
-│   ├── index.test.js
-│   ├── layout.test.js
-│   ├── mobileMenu.test.js
-│   └── navigation.test.js
-├── .github/workflows/   # CI configuration
-│   └── ci.yml
-├── netlify.toml         # Netlify configuration
-├── package.json
-├── tailwind.config.js
-└── postcss.config.js
-```
-
 ## Testing
+
+We have moved all tests to a consolidated structure:
+
+```
+consolidated-tests/
+├── components/         # Component tests
+├── pages/              # Page tests
+└── utils/              # Utility tests
+```
 
 To run tests:
 
@@ -150,20 +146,6 @@ This will generate a static site in the `out` directory, ready for deployment.
 2. Install Netlify CLI: `npm install -g netlify-cli`
 3. Authenticate with Netlify: `netlify login`
 4. Deploy the site: `netlify deploy --prod --dir=out`
-
-### Environment Variables
-
-No environment variables are required for basic functionality.
-
-## CI/CD
-
-This project includes GitHub Actions CI configuration in `.github/workflows/ci.yml` that:
-
-1. Runs all tests on push/PR to the main branch
-2. Builds the static site
-3. Uploads the build artifacts
-
-You can connect this to Netlify for automatic deployments when tests pass.
 
 ## Browser Support
 

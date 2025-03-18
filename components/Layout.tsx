@@ -23,6 +23,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -87,6 +88,7 @@ const icons = {
 export default function Layout({ children }: LayoutProps) {
   const currentYear = new Date().getFullYear();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isIntegrationsOpen, setIsIntegrationsOpen] = useState(false);
   
   // Add scroll event listener for sticky header
   useEffect(() => {
@@ -107,6 +109,16 @@ export default function Layout({ children }: LayoutProps) {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  // Smooth scroll to section instead of hard navigation
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMenuOpen(false);
+  };
 
   // Close mobile menu when a link is clicked
   const handleLinkClick = () => {
@@ -146,8 +158,8 @@ export default function Layout({ children }: LayoutProps) {
           {/* Desktop navigation */}
           <nav className="hidden md:block">
             <ul className="flex space-x-8">
-              <li><a href="#features" className="nav-link font-medium">Features</a></li>
-              <li><a href="#use-cases" className="nav-link font-medium">Use Cases</a></li>
+              <li><a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="nav-link font-medium">Features</a></li>
+              <li><a href="#use-cases" onClick={(e) => scrollToSection(e, 'use-cases')} className="nav-link font-medium">Use Cases</a></li>
               <li>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -189,29 +201,38 @@ export default function Layout({ children }: LayoutProps) {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </li>
-              <li><a href="#contact" className="nav-link font-medium">Contact</a></li>
+              <li><a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="nav-link font-medium">Contact</a></li>
             </ul>
           </nav>
           
           <div className="hidden md:block">
-            <a href="#contact" className="inline-block bg-black text-white py-2 px-4 rounded-md font-semibold hover:bg-gray-900 transition-colors">
-              Get Early Access
-            </a>
+            <div className="relative inline-block group rounded-full overflow-hidden">
+              <span className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,#1DA1F2,#FF0000,#FFCC00,#99CC00,#1DA1F2)]"></span>
+              <Button asChild variant="default" size="lg" className="relative m-[2px] bg-black text-white hover:bg-black hover:text-white rounded-full px-8">
+                <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')}>
+                  Get Early Access
+                </a>
+              </Button>
+            </div>
           </div>
           
           {/* Mobile navigation */}
           <div className="md:hidden">
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
-                <button 
-                  className="flex flex-col justify-center items-center w-8 h-8 space-y-1.5"
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-8 w-8 p-0"
                   aria-label="Toggle menu"
                   data-testid="hamburger-button"
                 >
-                  <span className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-                  <span className={`block w-6 h-0.5 bg-black transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-                  <span className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-                </button>
+                  <div className="flex flex-col justify-center items-center space-y-1.5">
+                    <span className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                    <span className={`block w-6 h-0.5 bg-black transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+                    <span className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+                  </div>
+                </Button>
               </SheetTrigger>
               <SheetContent side="right">
                 <SheetHeader>
@@ -219,55 +240,64 @@ export default function Layout({ children }: LayoutProps) {
                 </SheetHeader>
                 <nav className="py-4">
                   <ul className="flex flex-col space-y-4">
-                    <li><a href="#features" className="nav-link font-medium block py-2" onClick={handleLinkClick}>Features</a></li>
-                    <li><a href="#use-cases" className="nav-link font-medium block py-2" onClick={handleLinkClick}>Use Cases</a></li>
+                    <li><a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="nav-link font-medium block py-2">Features</a></li>
+                    <li><a href="#use-cases" onClick={(e) => scrollToSection(e, 'use-cases')} className="nav-link font-medium block py-2">Use Cases</a></li>
                     <li>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <button className="nav-link font-medium flex items-center justify-between w-full py-2">
-                            <span>Integrations</span>
-                            <DropdownIcon isOpen={false} />
-                          </button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="start">
-                          <div className="px-2 py-2">
-                            <h4 className="text-sm font-semibold text-gray-800 px-2">Repositories</h4>
-                            <DropdownMenuItem>
-                              <span className="w-4 h-4 mr-2 flex-shrink-0">
-                                <DropboxIcon size={16} className="text-[#0061FF]" />
-                              </span>
-                              Dropbox
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                              <span className="w-4 h-4 mr-2 flex-shrink-0">
-                                <SharePointIcon size={16} className="text-[#0078D4]" />
-                              </span>
-                              SharePoint
-                            </DropdownMenuItem>
+                      <div className="w-full">
+                        <button 
+                          className="nav-link font-medium flex items-center justify-between w-full py-2"
+                          onClick={() => setIsIntegrationsOpen(!isIntegrationsOpen)}
+                        >
+                          <span>Integrations</span>
+                          <DropdownIcon isOpen={isIntegrationsOpen} />
+                        </button>
+                        
+                        {isIntegrationsOpen && (
+                          <div className="mt-2 pl-4 border-l-2 border-gray-200">
+                            <div className="py-2">
+                              <h4 className="text-sm font-semibold text-gray-800 mb-2">Repositories</h4>
+                              <a href="#" className="flex items-center py-2" onClick={handleLinkClick}>
+                                <span className="w-4 h-4 mr-2 flex-shrink-0">
+                                  <DropboxIcon size={16} className="text-[#0061FF]" />
+                                </span>
+                                Dropbox
+                              </a>
+                              <a href="#" className="flex items-center py-2" onClick={handleLinkClick}>
+                                <span className="w-4 h-4 mr-2 flex-shrink-0">
+                                  <SharePointIcon size={16} className="text-[#0078D4]" />
+                                </span>
+                                SharePoint
+                              </a>
+                            </div>
+                            <div className="py-2">
+                              <h4 className="text-sm font-semibold text-gray-800 mb-2">Chat Interfaces</h4>
+                              <a href="#" className="flex items-center py-2" onClick={handleLinkClick}>
+                                <span className="w-4 h-4 mr-2 flex-shrink-0">
+                                  <WhatsAppIcon size={16} className="text-[#25D366]" />
+                                </span>
+                                WhatsApp
+                              </a>
+                              <a href="#" className="flex items-center py-2" onClick={handleLinkClick}>
+                                <span className="w-4 h-4 mr-2 flex-shrink-0">
+                                  <SlackIcon size={16} className="text-[#4A154B]" />
+                                </span>
+                                Slack
+                              </a>
+                            </div>
                           </div>
-                          <div className="px-2 py-2">
-                            <h4 className="text-sm font-semibold text-gray-800 px-2">Chat Interfaces</h4>
-                            <DropdownMenuItem>
-                              <span className="w-4 h-4 mr-2 flex-shrink-0">
-                                <WhatsAppIcon size={16} className="text-[#25D366]" />
-                              </span>
-                              WhatsApp
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                              <span className="w-4 h-4 mr-2 flex-shrink-0">
-                                <SlackIcon size={16} className="text-[#4A154B]" />
-                              </span>
-                              Slack
-                            </DropdownMenuItem>
-                          </div>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                        )}
+                      </div>
                     </li>
-                    <li><a href="#contact" className="nav-link font-medium block py-2" onClick={handleLinkClick}>Contact</a></li>
+                    <li><a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="nav-link font-medium block py-2">Contact</a></li>
                     <li className="pt-4">
-                      <a href="#contact" className="block w-full bg-black text-white py-2 px-4 rounded-md text-center font-semibold hover:bg-gray-900 transition-colors" onClick={handleLinkClick}>
-                        Get Early Access
-                      </a>
+                      <div className="relative inline-block group rounded-full overflow-hidden w-full">
+                        <span className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,#1DA1F2,#FF0000,#FFCC00,#99CC00,#1DA1F2)]"></span>
+                        <Button asChild variant="default" size="lg" className="relative m-[2px] bg-black text-white hover:bg-black hover:text-white rounded-full w-full">
+                          <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')}>
+                            Get Early Access
+                          </a>
+                        </Button>
+                      </div>
                     </li>
                   </ul>
                 </nav>
@@ -305,8 +335,8 @@ export default function Layout({ children }: LayoutProps) {
             <div>
               <h3 className="text-lg font-semibold mb-4">Product</h3>
               <ul className="space-y-2">
-                <li><a href="#features" className="text-gray-400 hover:text-white transition">Features</a></li>
-                <li><a href="#use-cases" className="text-gray-400 hover:text-white transition">Use Cases</a></li>
+                <li><a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="text-gray-400 hover:text-white transition">Features</a></li>
+                <li><a href="#use-cases" onClick={(e) => scrollToSection(e, 'use-cases')} className="text-gray-400 hover:text-white transition">Use Cases</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white transition">Pricing</a></li>
               </ul>
             </div>
@@ -316,7 +346,7 @@ export default function Layout({ children }: LayoutProps) {
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-400 hover:text-white transition">About Us</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white transition">Blog</a></li>
-                <li><a href="#contact" className="text-gray-400 hover:text-white transition">Contact</a></li>
+                <li><a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="text-gray-400 hover:text-white transition">Contact</a></li>
               </ul>
             </div>
             

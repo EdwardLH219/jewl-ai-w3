@@ -27,11 +27,12 @@ const customJestConfig = {
       ]
     }]
   },
-  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/', '<rootDir>/__tests__/', '<rootDir>/components/*.test.tsx'],
   transformIgnorePatterns: [
     '/node_modules/',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
+  testMatch: ['<rootDir>/consolidated-tests/**/*.{js,jsx,ts,tsx}'],
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   globals: {
     'ts-jest': {
@@ -44,6 +45,7 @@ const customJestConfig = {
     '!**/*.d.ts',
     '!**/node_modules/**',
     '!**/.next/**',
+    '!**/__tests__/**',
   ],
 }
 

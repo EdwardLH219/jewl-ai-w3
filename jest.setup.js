@@ -1,6 +1,9 @@
+/**
+ * @jest-environment jsdom
+ */
+
 // Learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 import { TextDecoder, TextEncoder } from 'util';
 
 global.TextEncoder = TextEncoder;

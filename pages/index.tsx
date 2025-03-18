@@ -1,8 +1,8 @@
 import React from 'react';
-import Features from '../components/Features';
-import ContactSection from '../components/ContactSection';
-import { Button } from '../components/ui/custom-button';
-import { Card, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/card';
+import Features from '@/components/Features';
+import ContactSection from '@/components/ContactSection';
+import { Button } from '@/components/ui/button';
+import { Card, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 
 interface UseCaseCardProps {
   title: string;
@@ -31,13 +31,15 @@ interface FeatureItemProps {
 }
 
 const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) => (
-  <div className="text-center">
-    <div className="bg-white rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-6 shadow-sm">
-      {icon}
-    </div>
-    <h3 className="text-xl font-semibold mb-3">{title}</h3>
-    <p className="text-gray-700">{description}</p>
-  </div>
+  <Card className="text-center bg-transparent border-none shadow-none">
+    <CardContent className="pt-6">
+      <div className="bg-white rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-6 shadow-sm">
+        {icon}
+      </div>
+      <CardTitle className="text-xl font-semibold mb-3">{title}</CardTitle>
+      <CardDescription className="text-gray-700">{description}</CardDescription>
+    </CardContent>
+  </Card>
 );
 
 export default function Home() {
@@ -116,15 +118,36 @@ export default function Home() {
             </div>
             
             <div className="flex flex-wrap justify-center gap-4">
-              <div className="relative inline-block group rounded-full">
-                <span className="absolute inset-0 rounded-full bg-gradient-to-r from-red-400 via-orange-300 via-yellow-300 via-green-400 via-cyan-400 via-blue-400 to-purple-400"></span>
-                <a href="#contact" className="relative block btn m-[2px] bg-black text-white hover:bg-black hover:text-white rounded-full px-8 py-2 font-semibold">
-                  Get Early Access
-                </a>
+              <div className="relative inline-block group rounded-full overflow-hidden">
+                <span className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,#1DA1F2,#FF0000,#FFCC00,#99CC00,#1DA1F2)]"></span>
+                <Button 
+                  asChild 
+                  variant="default" 
+                  size="lg" 
+                  className="relative m-[2px] bg-black text-white hover:bg-black hover:text-white rounded-full px-8"
+                >
+                  <a href="#contact" onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}>
+                    Get Early Access
+                  </a>
+                </Button>
               </div>
-              <a href="#features" className="text-black border border-black rounded-full px-8 py-3 font-medium hover:bg-black hover:text-white transition-colors">
-                Learn More
-              </a>
+              <Button 
+                asChild 
+                variant="outline" 
+                size="lg" 
+                className="relative text-black border border-black rounded-full transition-all duration-300 overflow-hidden group"
+              >
+                <a href="#features" onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+                }}>
+                  <span className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-gradient-to-r from-[#1DA1F2] via-[#FF0000] via-[#FFCC00] to-[#99CC00] blur-md"></span>
+                  <span className="relative z-10 text-black">Learn More</span>
+                </a>
+              </Button>
             </div>
           </div>
         </div>
