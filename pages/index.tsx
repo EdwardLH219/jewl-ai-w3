@@ -1,6 +1,8 @@
 import React from 'react';
 import Features from '../components/Features';
 import ContactSection from '../components/ContactSection';
+import { Button } from '../components/ui/custom-button';
+import { Card, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/card';
 
 interface UseCaseCardProps {
   title: string;
@@ -8,16 +10,18 @@ interface UseCaseCardProps {
 }
 
 const UseCaseCard: React.FC<UseCaseCardProps> = ({ title, description }) => (
-  <div className="card p-8">
-    <h3 className="text-2xl font-semibold mb-4">{title}</h3>
-    <p className="text-gray-700 mb-6">{description}</p>
-    <a href="#" className="text-black font-medium hover:underline inline-flex items-center">
-      Learn more
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-      </svg>
-    </a>
-  </div>
+  <Card className="h-full">
+    <CardContent className="pt-6">
+      <CardTitle className="text-2xl font-semibold mb-4">{title}</CardTitle>
+      <CardDescription className="text-gray-700 mb-6">{description}</CardDescription>
+      <a href="#" className="text-black font-medium hover:underline inline-flex items-center">
+        Learn more
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </CardContent>
+  </Card>
 );
 
 interface FeatureItemProps {
@@ -112,12 +116,12 @@ export default function Home() {
             </div>
             
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="#contact" className="relative inline-block group rounded-full">
+              <div className="relative inline-block group rounded-full">
                 <span className="absolute inset-0 rounded-full bg-gradient-to-r from-red-400 via-orange-300 via-yellow-300 via-green-400 via-cyan-400 via-blue-400 to-purple-400"></span>
-                <span className="relative block btn m-[2px] bg-black text-white hover:bg-black hover:text-white rounded-full px-8">
+                <a href="#contact" className="relative block btn m-[2px] bg-black text-white hover:bg-black hover:text-white rounded-full px-8 py-2 font-semibold">
                   Get Early Access
-                </span>
-              </a>
+                </a>
+              </div>
               <a href="#features" className="text-black border border-black rounded-full px-8 py-3 font-medium hover:bg-black hover:text-white transition-colors">
                 Learn More
               </a>

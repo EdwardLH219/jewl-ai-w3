@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 
 interface FeatureCardProps {
   icon: JSX.Element;
@@ -10,10 +10,10 @@ interface FeatureCardProps {
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => (
   <Card className="group hover:transform hover:scale-105 transition-all duration-300" data-testid="feature-card">
     <CardHeader>
-      <div className="mb-6">
+      <div className="mb-4">
         {icon}
       </div>
-      <CardTitle className="text-2xl font-semibold">{title}</CardTitle>
+      <CardTitle>{title}</CardTitle>
     </CardHeader>
     <CardContent>
       <CardDescription className="text-gray-700">

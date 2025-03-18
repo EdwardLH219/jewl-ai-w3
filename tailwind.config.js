@@ -11,7 +11,7 @@ module.exports = {
   			'spin-slow': 'spin 30s linear infinite'
   		},
   		margin: {
-  			[2px]: '2px'
+  			'2px': '2px'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

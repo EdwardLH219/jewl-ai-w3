@@ -10,21 +10,19 @@ import {
   TwitterIcon, 
   LinkedInIcon 
 } from '@/utils/integration-icons';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
+} from '@/components/ui/dropdown-menu';
 import {
   Sheet,
   SheetContent,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/sheet';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -89,7 +87,6 @@ const icons = {
 export default function Layout({ children }: LayoutProps) {
   const currentYear = new Date().getFullYear();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showIntegrationsMenu, setShowIntegrationsMenu] = useState(false);
   
   // Add scroll event listener for sticky header
   useEffect(() => {
@@ -114,13 +111,6 @@ export default function Layout({ children }: LayoutProps) {
   // Close mobile menu when a link is clicked
   const handleLinkClick = () => {
     setIsMenuOpen(false);
-    setShowIntegrationsMenu(false);
-  };
-  
-  // Toggle integrations submenu
-  const toggleIntegrationsMenu = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setShowIntegrationsMenu(!showIntegrationsMenu);
   };
   
   return (
@@ -160,52 +150,41 @@ export default function Layout({ children }: LayoutProps) {
               <li><a href="#use-cases" className="nav-link font-medium">Use Cases</a></li>
               <li>
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="nav-link font-medium flex items-center gap-1">
-                    Integrations
-                    <DropdownIcon isOpen={showIntegrationsMenu} />
+                  <DropdownMenuTrigger asChild>
+                    <button className="nav-link font-medium flex items-center gap-1">
+                      Integrations <DropdownIcon isOpen={false} />
+                    </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-64">
-                    <div className="px-4 py-2 border-b">
-                      <h4 className="text-sm font-semibold text-gray-800">Repositories</h4>
-                      <div className="mt-2 space-y-2">
-                        <DropdownMenuItem>
-                          <a href="#" className="flex items-center text-sm text-gray-700 w-full px-2 py-1 rounded">
-                            <span className="w-5 h-5 mr-2 flex-shrink-0">
-                              <DropboxIcon size={20} className="text-[#0061FF]" />
-                            </span>
-                            Dropbox
-                          </a>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <a href="#" className="flex items-center text-sm text-gray-700 w-full px-2 py-1 rounded">
-                            <span className="w-5 h-5 mr-2 flex-shrink-0">
-                              <SharePointIcon size={20} className="text-[#0078D4]" />
-                            </span>
-                            SharePoint
-                          </a>
-                        </DropdownMenuItem>
-                      </div>
+                  <DropdownMenuContent className="w-64" align="start">
+                    <div className="px-2 py-2 border-b">
+                      <h4 className="text-sm font-semibold text-gray-800 px-2">Repositories</h4>
+                      <DropdownMenuItem>
+                        <span className="w-5 h-5 mr-2 flex-shrink-0">
+                          <DropboxIcon size={20} className="text-[#0061FF]" />
+                        </span>
+                        Dropbox
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <span className="w-5 h-5 mr-2 flex-shrink-0">
+                          <SharePointIcon size={20} className="text-[#0078D4]" />
+                        </span>
+                        SharePoint
+                      </DropdownMenuItem>
                     </div>
-                    <div className="px-4 py-2 border-b">
-                      <h4 className="text-sm font-semibold text-gray-800">Communication</h4>
-                      <div className="mt-2 space-y-2">
-                        <DropdownMenuItem>
-                          <a href="#" className="flex items-center text-sm text-gray-700 w-full px-2 py-1 rounded">
-                            <span className="w-5 h-5 mr-2 flex-shrink-0">
-                              <SlackIcon size={20} className="text-[#4A154B]" />
-                            </span>
-                            Slack
-                          </a>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <a href="#" className="flex items-center text-sm text-gray-700 w-full px-2 py-1 rounded">
-                            <span className="w-5 h-5 mr-2 flex-shrink-0">
-                              <WhatsAppIcon size={20} className="text-[#25D366]" />
-                            </span>
-                            WhatsApp
-                          </a>
-                        </DropdownMenuItem>
-                      </div>
+                    <div className="px-2 py-2">
+                      <h4 className="text-sm font-semibold text-gray-800 px-2">Chat Interfaces</h4>
+                      <DropdownMenuItem>
+                        <span className="w-5 h-5 mr-2 flex-shrink-0">
+                          <WhatsAppIcon size={20} className="text-[#25D366]" />
+                        </span>
+                        WhatsApp
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <span className="w-5 h-5 mr-2 flex-shrink-0">
+                          <SlackIcon size={20} className="text-[#4A154B]" />
+                        </span>
+                        Slack
+                      </DropdownMenuItem>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -215,202 +194,155 @@ export default function Layout({ children }: LayoutProps) {
           </nav>
           
           <div className="hidden md:block">
-            <Button asChild variant="outline" className="mr-4">
-              <a href="#contact">Get Early Access</a>
-            </Button>
+            <a href="#contact" className="inline-block bg-black text-white py-2 px-4 rounded-md font-semibold hover:bg-gray-900 transition-colors">
+              Get Early Access
+            </a>
           </div>
           
-          {/* Mobile menu button */}
+          {/* Mobile navigation */}
           <div className="md:hidden">
-            <Sheet>
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                  <span className="sr-only">Toggle menu</span>
-                </Button>
+                <button 
+                  className="flex flex-col justify-center items-center w-8 h-8 space-y-1.5"
+                  aria-label="Toggle menu"
+                  data-testid="hamburger-button"
+                >
+                  <span className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                  <span className={`block w-6 h-0.5 bg-black transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+                  <span className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+                </button>
               </SheetTrigger>
               <SheetContent side="right">
-                <div className="py-4">
-                  <ul className="space-y-4">
-                    <li><a href="#features" className="block py-2 text-lg" onClick={handleLinkClick}>Features</a></li>
-                    <li><a href="#use-cases" className="block py-2 text-lg" onClick={handleLinkClick}>Use Cases</a></li>
+                <SheetHeader>
+                  <SheetTitle>Menu</SheetTitle>
+                </SheetHeader>
+                <nav className="py-4">
+                  <ul className="flex flex-col space-y-4">
+                    <li><a href="#features" className="nav-link font-medium block py-2" onClick={handleLinkClick}>Features</a></li>
+                    <li><a href="#use-cases" className="nav-link font-medium block py-2" onClick={handleLinkClick}>Use Cases</a></li>
                     <li>
-                      <button
-                        className="flex items-center justify-between w-full py-2 text-lg"
-                        onClick={toggleIntegrationsMenu}
-                      >
-                        <span>Integrations</span>
-                        <DropdownIcon isOpen={showIntegrationsMenu} />
-                      </button>
-                      {showIntegrationsMenu && (
-                        <div className="pl-4 mt-2 space-y-2">
-                          <h4 className="text-sm font-semibold text-gray-600 mt-2">Repositories</h4>
-                          <a
-                            href="#"
-                            className="flex items-center py-1 text-sm text-gray-700"
-                            onClick={handleLinkClick}
-                          >
-                            <span className="w-5 h-5 mr-2">
-                              <DropboxIcon size={20} className="text-[#0061FF]" />
-                            </span>
-                            Dropbox
-                          </a>
-                          <a
-                            href="#"
-                            className="flex items-center py-1 text-sm text-gray-700"
-                            onClick={handleLinkClick}
-                          >
-                            <span className="w-5 h-5 mr-2">
-                              <SharePointIcon size={20} className="text-[#0078D4]" />
-                            </span>
-                            SharePoint
-                          </a>
-                          
-                          <h4 className="text-sm font-semibold text-gray-600 mt-4">Communication</h4>
-                          <a
-                            href="#"
-                            className="flex items-center py-1 text-sm text-gray-700"
-                            onClick={handleLinkClick}
-                          >
-                            <span className="w-5 h-5 mr-2">
-                              <SlackIcon size={20} className="text-[#4A154B]" />
-                            </span>
-                            Slack
-                          </a>
-                          <a
-                            href="#"
-                            className="flex items-center py-1 text-sm text-gray-700"
-                            onClick={handleLinkClick}
-                          >
-                            <span className="w-5 h-5 mr-2">
-                              <WhatsAppIcon size={20} className="text-[#25D366]" />
-                            </span>
-                            WhatsApp
-                          </a>
-                        </div>
-                      )}
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <button className="nav-link font-medium flex items-center justify-between w-full py-2">
+                            <span>Integrations</span>
+                            <DropdownIcon isOpen={false} />
+                          </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="start">
+                          <div className="px-2 py-2">
+                            <h4 className="text-sm font-semibold text-gray-800 px-2">Repositories</h4>
+                            <DropdownMenuItem>
+                              <span className="w-4 h-4 mr-2 flex-shrink-0">
+                                <DropboxIcon size={16} className="text-[#0061FF]" />
+                              </span>
+                              Dropbox
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <span className="w-4 h-4 mr-2 flex-shrink-0">
+                                <SharePointIcon size={16} className="text-[#0078D4]" />
+                              </span>
+                              SharePoint
+                            </DropdownMenuItem>
+                          </div>
+                          <div className="px-2 py-2">
+                            <h4 className="text-sm font-semibold text-gray-800 px-2">Chat Interfaces</h4>
+                            <DropdownMenuItem>
+                              <span className="w-4 h-4 mr-2 flex-shrink-0">
+                                <WhatsAppIcon size={16} className="text-[#25D366]" />
+                              </span>
+                              WhatsApp
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <span className="w-4 h-4 mr-2 flex-shrink-0">
+                                <SlackIcon size={16} className="text-[#4A154B]" />
+                              </span>
+                              Slack
+                            </DropdownMenuItem>
+                          </div>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </li>
-                    <li><a href="#contact" className="block py-2 text-lg" onClick={handleLinkClick}>Contact</a></li>
+                    <li><a href="#contact" className="nav-link font-medium block py-2" onClick={handleLinkClick}>Contact</a></li>
                     <li className="pt-4">
-                      <Button asChild className="w-full">
-                        <a href="#contact" onClick={handleLinkClick}>Get Early Access</a>
-                      </Button>
+                      <a href="#contact" className="block w-full bg-black text-white py-2 px-4 rounded-md text-center font-semibold hover:bg-gray-900 transition-colors" onClick={handleLinkClick}>
+                        Get Early Access
+                      </a>
                     </li>
                   </ul>
-                </div>
+                </nav>
               </SheetContent>
             </Sheet>
           </div>
         </div>
       </header>
-      
-      <main className="flex-grow">
+
+      <main className="flex-1">
         {children}
       </main>
       
-      <footer className="bg-black text-white py-12">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-5 gap-8">
-          <div className="space-y-4">
-            <div className="mb-2">
-              <Image
-                src="/logo-white.png" 
-                alt="jewl.ai logo" 
-                width={120} 
-                height={36}
-                className="h-9 w-auto" 
-                unoptimized
-              />
+      <footer className="bg-black text-white py-16">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <Link href="/">
+                <div className="cursor-pointer">
+                  <Image
+                    src="/logo-white.png" 
+                    alt="jewl.ai logo" 
+                    width={120} 
+                    height={36}
+                    className="h-9 w-auto"
+                    unoptimized
+                  />
+                </div>
+              </Link>
+              <p className="mt-4 text-gray-400">
+                Reimagining document search with AI.
+              </p>
             </div>
-            <p className="text-gray-400 text-sm">
-              Intelligent document processing powered by AI to help you find, analyze, and extract valuable insights.
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Product</h3>
+              <ul className="space-y-2">
+                <li><a href="#features" className="text-gray-400 hover:text-white transition">Features</a></li>
+                <li><a href="#use-cases" className="text-gray-400 hover:text-white transition">Use Cases</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition">Pricing</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Company</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-400 hover:text-white transition">About Us</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition">Blog</a></li>
+                <li><a href="#contact" className="text-gray-400 hover:text-white transition">Contact</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Connect</h3>
+              <div className="flex space-x-4">
+                <a href="#" className="text-gray-400 hover:text-white transition">
+                  <span className="sr-only">Twitter</span>
+                  <TwitterIcon className="h-6 w-6" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white transition">
+                  <span className="sr-only">LinkedIn</span>
+                  <LinkedInIcon className="h-6 w-6" />
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-500 text-sm">
+              &copy; {currentYear} jewl.ai. All rights reserved.
             </p>
-          </div>
-          
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Product</h3>
-            <ul className="space-y-2">
-              <li><a href="#features" className="text-gray-400 text-sm hover:text-white transition-colors">Features</a></li>
-              <li><a href="#use-cases" className="text-gray-400 text-sm hover:text-white transition-colors">Use Cases</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-white transition-colors">Pricing</a></li>
-            </ul>
-          </div>
-          
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Integrations</h3>
-            <ul className="space-y-2">
-              <li><span className="text-gray-400 text-sm block mb-1">Repositories</span>
-                <ul className="pl-2 space-y-1 border-l border-gray-800">
-                  <li><a href="#" className="text-gray-400 text-sm hover:text-white transition-colors flex items-center">
-                    <span className="w-3 h-3 mr-1.5 inline-block" style={{color: "#0061FF"}}>
-                      {icons.dropbox({ className: 'w-full h-full' })}
-                    </span>Dropbox</a>
-                  </li>
-                  <li><a href="#" className="text-gray-400 text-sm hover:text-white transition-colors flex items-center">
-                    <span className="w-3 h-3 mr-1.5 inline-block" style={{color: "#0078D4"}}>
-                      {icons.sharepoint({ className: 'w-full h-full' })}
-                    </span>SharePoint</a>
-                  </li>
-                </ul>
-              </li>
-              <li className="mt-3"><span className="text-gray-400 text-sm block mb-1">Chat Interfaces</span>
-                <ul className="pl-2 space-y-1 border-l border-gray-800">
-                  <li><a href="#" className="text-gray-400 text-sm hover:text-white transition-colors flex items-center">
-                    <span className="w-3 h-3 mr-1.5 inline-block" style={{color: "#25D366"}}>
-                      {icons.whatsapp({ className: 'w-full h-full' })}
-                    </span>WhatsApp</a>
-                  </li>
-                  <li><a href="#" className="text-gray-400 text-sm hover:text-white transition-colors flex items-center">
-                    <span className="w-3 h-3 mr-1.5 inline-block" style={{color: "#4A154B"}}>
-                      {icons.slack({ className: 'w-full h-full' })}
-                    </span>Slack</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Company</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 text-sm hover:text-white transition-colors">About</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-white transition-colors">Blog</a></li>
-              <li><a href="#contact" className="text-gray-400 text-sm hover:text-white transition-colors">Contact</a></li>
-            </ul>
-          </div>
-          
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Legal</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 text-sm hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="text-gray-400 text-sm hover:text-white transition-colors">Terms of Service</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div className="container mx-auto border-t border-gray-800 mt-10 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">© {currentYear} jewl.ai. All rights reserved.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">
-              <span className="sr-only">Twitter</span>
-              {icons.twitter({ className: 'h-5 w-5' })}
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">
-              <span className="sr-only">LinkedIn</span>
-              {icons.linkedin({ className: 'h-5 w-5' })}
-            </a>
+            <div className="mt-4 md:mt-0 flex space-x-6">
+              <a href="#" className="text-gray-500 hover:text-white transition text-sm">Privacy Policy</a>
+              <a href="#" className="text-gray-500 hover:text-white transition text-sm">Terms of Service</a>
+            </div>
           </div>
         </div>
       </footer>
