@@ -1,31 +1,88 @@
 # jewl.ai Website
 
-A Next.js website for jewl.ai with a clean, modern design inspired by manus.im.
+A modern, responsive website for jewl.ai, an AI-powered document assistant that helps users find, analyze, and extract valuable insights from documents.
+
+## Technologies Used
+
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Zod for form validation
+
+## Recent Optimizations
+
+The codebase has been optimized with the following improvements:
+
+### TypeScript Migration
+
+- Converted key JS files to TypeScript (.tsx)
+- Added proper type definitions and interfaces
+- Set up better TypeScript configuration with strict mode
+
+### Component Structure
+
+- Created reusable UI components (Button, Card)
+- Implemented centralized validation utilities
+- Added icon components for integrations
+
+### Best Practices
+
+- Improved form validation with Zod schema validation
+- Enhanced accessibility with proper ARIA attributes
+- Added loading states for better UX
+- Implemented responsive design patterns
+
+## Directory Structure
+
+```
+jewl-ai-website/
+├── components/         # React components
+│   ├── ui/             # Reusable UI components
+│   ├── Layout.tsx      # Main layout component
+│   ├── Features.tsx    # Features section
+│   └── ContactSection.tsx  # Contact form section
+├── pages/              # Next.js pages
+│   ├── _app.tsx        # App wrapper
+│   └── index.tsx       # Homepage
+├── public/             # Static assets
+│   ├── icons/          # Integration icons
+│   └── logo-*.png      # Logo files
+├── styles/             # CSS styles
+│   └── globals.css     # Global styles with Tailwind
+├── utils/              # Utility functions
+│   ├── validation.ts   # Form validation utilities
+│   └── integration-icons.tsx  # Icon components
+└── README.md           # Project documentation
+```
 
 ## Getting Started
 
-First, install the dependencies:
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
+## Build and Deploy
 
 ```bash
-npm install
+npm run build
+npm run start
 ```
-
-Then, run the development server:
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3003](http://localhost:3003) with your browser to see the result.
 
 ## Features
 
-- Responsive design with mobile menu
-- Modern UI with clean typography
-- Video placeholder with play button
-- Rainbow gradient button styling
-- Card-based layout for use cases and features
-- Comprehensive test suite
+- Responsive design for all device sizes
+- Modern UI with animations and transitions
+- Form validation with error handling
+- Integration showcases for repositories and chat interfaces
+- Optimized for accessibility and performance
 
 ## File Structure
 
