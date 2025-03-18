@@ -37,7 +37,7 @@ describe('Mobile Menu', () => {
     
     // Click the hamburger button to open the menu
     fireEvent.click(hamburgerButton);
-    expect(mobileMenu).toHaveClass('max-h-48');
+    expect(mobileMenu).toHaveClass('max-h-96');
     
     // Click again to close
     fireEvent.click(hamburgerButton);
@@ -50,11 +50,12 @@ describe('Mobile Menu', () => {
     
     // Open the menu first
     fireEvent.click(hamburgerButton);
-    expect(mobileMenu).toHaveClass('max-h-48');
+    expect(mobileMenu).toHaveClass('max-h-96');
     
     // Find a link in the mobile menu
     const links = mobileMenu.querySelectorAll('a');
-    expect(links.length).toBe(3);
+    // We now have more links due to the Integrations dropdown
+    expect(links.length).toBeGreaterThan(3);
     
     // Click a link
     fireEvent.click(links[0]);

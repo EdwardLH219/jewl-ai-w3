@@ -16,15 +16,15 @@ export default function Home() {
             </p>
             
             <div className="relative w-full max-w-3xl mx-auto mb-10 aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-lg">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <button className="w-20 h-20 bg-black/75 rounded-full flex items-center justify-center text-white hover:bg-black transition-colors" aria-label="Play video">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 ml-1">
-                    <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
-                  </svg>
-                </button>
-              </div>
-              <div className="absolute bottom-4 left-4 text-white text-sm font-medium px-3 py-1 bg-black/70 rounded-full">
-                0:45
+              <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '1920/1080' }}>
+                <iframe 
+                  src="https://share.synthesia.io/embeds/videos/05ba1e6f-c240-478b-b7aa-143f5d86cca1" 
+                  loading="lazy" 
+                  title="Synthesia video player - Revolutionize Your Document Search with Jewl.ai" 
+                  allowFullScreen 
+                  allow="encrypted-media; fullscreen;" 
+                  style={{ position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, border: 'none', padding: 0, margin: 0, overflow: 'hidden' }}
+                />
               </div>
             </div>
             
