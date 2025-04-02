@@ -14,12 +14,18 @@ const customJestConfig = {
   setupFilesAfterEnv: [
     '<rootDir>/jest.setup.js',
   ],
+  moduleDirectories: ['node_modules', '<rootDir>'],
   moduleNameMapper: {
     '^@/components/(.*)$': '<rootDir>/components/$1',
     '^@/pages/(.*)$': '<rootDir>/pages/$1',
     '^@/styles/(.*)$': '<rootDir>/styles/$1',
     '^@/lib/(.*)$': '<rootDir>/lib/$1',
     '^@/utils/(.*)$': '<rootDir>/utils/$1',
+    '^@/test/(.*)$': '<rootDir>/test/$1',
+    // Handle relative imports in consolidated-tests
+    '^../components/(.*)$': '<rootDir>/components/$1',
+    '^../pages/(.*)$': '<rootDir>/pages/$1',
+    '^../utils/(.*)$': '<rootDir>/utils/$1',
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js'
   },
@@ -32,13 +38,18 @@ const customJestConfig = {
       ]
     }]
   },
-  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/', '<rootDir>/__tests__/', '<rootDir>/components/*.test.tsx'],
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/', '<rootDir>/__tests__/'],
   transformIgnorePatterns: [
     '/node_modules/',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
   testMatch: ['<rootDir>/consolidated-tests/**/*.{js,jsx,ts,tsx}'],
-  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
+  roots: ['<rootDir>'],
+  modulePaths: ['<rootDir>'],
+  testEnvironmentOptions: {
+    url: 'http://localhost'
+  },
   globals: {
     'ts-jest': {
       useESM: true,

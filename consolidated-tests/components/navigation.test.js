@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Layout from '../components/Layout';
+import { render, screen, fireEvent } from '@testing-library/react';
+import Layout from '@/components/Layout';
 
 // Mock window.matchMedia for desktop viewport
 window.matchMedia = jest.fn().mockImplementation(query => ({

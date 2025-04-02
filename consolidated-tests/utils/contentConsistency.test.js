@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Home from '../pages/index';
-import Features from '../components/Features';
-import ContactSection from '../components/ContactSection';
+import Home from '@/pages/index';
+import Features from '@/components/Features';
+import ContactSection from '@/components/ContactSection';
 
 describe('Content Consistency Tests', () => {
   describe('Typography and Headings', () => {

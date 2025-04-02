@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import ContactSection from '../components/ContactSection';
+import ContactSection from '@/components/ContactSection';
 
 describe('Contact Section', () => {
   beforeEach(() => {
