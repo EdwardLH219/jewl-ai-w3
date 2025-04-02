@@ -8,8 +8,10 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 const customJestConfig = {
   testEnvironment: 'jsdom',
+  // File that runs before the test environment is created
+  setupFiles: ['<rootDir>/jest-environment-setup.js'],
+  // Files that run after the test environment is created
   setupFilesAfterEnv: [
-    '<rootDir>/consolidated-tests/__mocks__/web-api.js',
     '<rootDir>/jest.setup.js',
   ],
   moduleNameMapper: {

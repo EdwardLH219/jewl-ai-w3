@@ -6,9 +6,6 @@
 import '@testing-library/jest-dom';
 import { TextDecoder, TextEncoder } from 'util';
 
-// Import Web API mocks
-import './consolidated-tests/__mocks__/web-api';
-
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
