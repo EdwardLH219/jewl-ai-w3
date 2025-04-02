@@ -120,7 +120,7 @@ export default function ContactSection() {
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="mb-6">Get Early Access</h2>
           <p className="text-xl text-gray-300">
-            Join our early access program to experience how jewl.ai can transform your document management workflow.
+            Join our early access program to experience how Jewl can transform your document management workflow.
           </p>
         </div>
         <div className="max-w-lg mx-auto">
@@ -172,7 +172,7 @@ export default function ContactSection() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message" className="text-white">
-                  How would you use jewl.ai?
+                  How would you use Jewl?
                 </Label>
                 <Textarea
                   id="message"
