@@ -98,10 +98,10 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="font-bold tracking-tight mb-8">
-              Leave it to jewl.ai
+              Leave it to Jewl
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 mb-10 max-w-3xl mx-auto">
-              jewl.ai is an AI-powered document assistant that bridges search and intelligence: it doesn't just find documents, it delivers insights.
+              Jewl is an AI-powered document assistant that bridges search and intelligence: it doesn't just find documents, it delivers insights.
             </p>
             
             <div className="relative w-full max-w-3xl mx-auto mb-10 aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-lg">
@@ -160,7 +160,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="mb-6">Use case gallery</h2>
             <p className="text-xl text-gray-700">
-              Learn how jewl.ai handles real-world document challenges through interactive examples.
+              Learn how Jewl handles real-world document challenges through interactive examples.
             </p>
           </div>
           
@@ -179,9 +179,9 @@ export default function Home() {
       <section className="section-padding bg-gray-50">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="mb-6">Why choose jewl.ai?</h2>
+            <h2 className="mb-6">Why choose Jewl?</h2>
             <p className="text-xl text-gray-700">
-              jewl.ai is designed with both power and simplicity in mind, giving you unmatched document intelligence.
+              Jewl is designed with both power and simplicity in mind, giving you unmatched document intelligence.
             </p>
           </div>
           

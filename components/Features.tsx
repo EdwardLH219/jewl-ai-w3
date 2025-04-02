@@ -60,7 +60,7 @@ export default function Features() {
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="mb-6">Key Features</h2>
           <p className="text-xl text-gray-700">
-            jewl.ai leverages cutting-edge artificial intelligence to transform how you interact with your documents.
+            Jewl leverages cutting-edge artificial intelligence to transform how you interact with your documents.
           </p>
         </div>
         
