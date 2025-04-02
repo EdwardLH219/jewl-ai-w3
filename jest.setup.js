@@ -9,6 +9,10 @@ import { TextDecoder, TextEncoder } from 'util';
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
+// Add Request and Response globals
+global.Request = global.Request || require('node-fetch').Request;
+global.Response = global.Response || require('node-fetch').Response;
+
 // Mock Next.js router
 jest.mock('next/router', () => ({
   useRouter() {
