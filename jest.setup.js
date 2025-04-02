@@ -10,8 +10,22 @@ global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
 // Add Request and Response globals
-global.Request = global.Request || require('node-fetch').Request;
-global.Response = global.Response || require('node-fetch').Response;
+global.Request = class Request {
+  constructor(input, init) {
+    this.url = input;
+    this.method = init?.method || 'GET';
+    this.headers = init?.headers || {};
+    this.body = init?.body;
+  }
+};
+
+global.Response = class Response {
+  constructor(body, init) {
+    this.body = body;
+    this.status = init?.status || 200;
+    this.headers = init?.headers || {};
+  }
+};
 
 // Mock Next.js router
 jest.mock('next/router', () => ({
