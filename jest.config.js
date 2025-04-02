@@ -26,6 +26,7 @@ const customJestConfig = {
     '^../components/(.*)$': '<rootDir>/components/$1',
     '^../pages/(.*)$': '<rootDir>/pages/$1',
     '^../utils/(.*)$': '<rootDir>/utils/$1',
+    '^../utils/dataTransfer/(.*)$': '<rootDir>/utils/dataTransfer/$1',
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js'
   },
@@ -38,7 +39,12 @@ const customJestConfig = {
       ]
     }]
   },
-  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/', '<rootDir>/__tests__/'],
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/.next/',
+    '<rootDir>/__tests__/',
+    '<rootDir>/consolidated-tests/__mocks__/'
+  ],
   transformIgnorePatterns: [
     '/node_modules/',
     '^.+\\.module\\.(css|sass|scss)$',

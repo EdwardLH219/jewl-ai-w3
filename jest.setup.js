@@ -6,16 +6,13 @@
 import '@testing-library/jest-dom';
 import { TextDecoder, TextEncoder } from 'util';
 
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
-
 // Mock Next.js router
 jest.mock('next/router', () => ({
   useRouter() {
     return {
       route: '/',
       pathname: '',
-      query: {},
+      query: '',
       asPath: '',
       push: jest.fn(),
       events: {
@@ -32,7 +29,41 @@ jest.mock('next/router', () => ({
 jest.mock('next/image', () => ({
   __esModule: true,
   default: (props) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img {...props} alt={props.alt || ''} />;
+    // eslint-disable-next-line jsx-a11y/alt-text
+    return <img {...props} />;
   },
-})); 
+}));
+
+// Mock window.getSelection
+Object.defineProperty(window, 'getSelection', {
+  value: () => ({
+    addRange: () => {},
+    removeAllRanges: () => {},
+    getRangeAt: () => {},
+    toString: () => ''
+  }),
+  writable: true
+});
+
+// Mock window.matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+
+// Configure Jest for userEvent
+jest.useFakeTimers();
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+
+// Configure Jest environment
+jest.setTimeout(10000); 

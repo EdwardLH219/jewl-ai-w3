@@ -71,11 +71,11 @@ describe('Contact Section', () => {
       message: 'This is a test message'
     });
     
-    // Wait for thank you message to appear
+    // Wait for the simulated API delay and thank you message to appear
     await waitFor(() => {
-      expect(screen.getByText(/thank you/i)).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: /thank you!/i })).toBeInTheDocument();
       expect(screen.getByText(/your request for early access has been received/i)).toBeInTheDocument();
-    });
+    }, { timeout: 2000 }); // Increase timeout to account for the 1s delay
     
     // Form should be hidden
     expect(screen.queryByLabelText(/name/i)).not.toBeInTheDocument();

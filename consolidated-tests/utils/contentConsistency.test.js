@@ -11,7 +11,7 @@ describe('Content Consistency Tests', () => {
       
       // Check main heading (h1)
       const mainHeading = screen.getByRole('heading', { level: 1 });
-      expect(mainHeading).toHaveTextContent('Leave it to jewl.ai');
+      expect(mainHeading).toHaveTextContent('Leave it to Jewl');
       expect(mainHeading).toHaveClass('font-bold');
       
       // Check section headings (h2)
@@ -37,7 +37,7 @@ describe('Content Consistency Tests', () => {
       expect(featureHeadings).toHaveLength(3); // Three feature cards
       
       featureHeadings.forEach(heading => {
-        expect(heading).toHaveClass('text-2xl', 'font-semibold', 'mb-3');
+        expect(heading).toHaveClass('text-2xl', 'font-semibold', 'leading-none', 'tracking-tight');
       });
       
       // Check for descriptive content

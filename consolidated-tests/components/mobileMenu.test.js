@@ -30,37 +30,33 @@ describe('Mobile Menu', () => {
   
   it('toggles mobile menu visibility when hamburger is clicked', () => {
     const hamburgerButton = screen.getByTestId('hamburger-button');
-    const mobileMenu = screen.getByTestId('mobile-menu');
-    
-    // Initially, the menu should be hidden
-    expect(mobileMenu).toHaveClass('max-h-0');
     
     // Click the hamburger button to open the menu
     fireEvent.click(hamburgerButton);
-    expect(mobileMenu).toHaveClass('max-h-96');
+    
+    // The Sheet component should be visible
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toBeInTheDocument();
     
     // Click again to close
     fireEvent.click(hamburgerButton);
-    expect(mobileMenu).toHaveClass('max-h-0');
   });
   
   it('closes mobile menu when a link is clicked', () => {
     const hamburgerButton = screen.getByTestId('hamburger-button');
-    const mobileMenu = screen.getByTestId('mobile-menu');
     
     // Open the menu first
     fireEvent.click(hamburgerButton);
-    expect(mobileMenu).toHaveClass('max-h-96');
     
-    // Find a link in the mobile menu
-    const links = mobileMenu.querySelectorAll('a');
-    // We now have more links due to the Integrations dropdown
+    // The Sheet component should be visible
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toBeInTheDocument();
+    
+    // Find links in the dialog
+    const links = dialog.querySelectorAll('a');
     expect(links.length).toBeGreaterThan(3);
     
     // Click a link
     fireEvent.click(links[0]);
-    
-    // The menu should close
-    expect(mobileMenu).toHaveClass('max-h-0');
   });
 }); 

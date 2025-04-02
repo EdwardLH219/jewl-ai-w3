@@ -9,7 +9,7 @@ describe('Home page', () => {
   
   it('renders the welcome heading', () => {
     const heading = screen.getByRole('heading', {
-      name: /leave it to jewl\.ai/i,
+      name: /leave it to jewl/i,
     });
     
     expect(heading).toBeInTheDocument();
@@ -43,9 +43,9 @@ describe('Home page', () => {
     expect(aiInsightsHeading).toBeInTheDocument();
   });
   
-  it('displays the "Why choose jewl.ai?" section', () => {
+  it('displays the "Why choose Jewl?" section', () => {
     const whyChooseHeading = screen.getByRole('heading', { 
-      name: /why choose jewl\.ai/i 
+      name: /why choose jewl\?/i 
     });
     
     expect(whyChooseHeading).toBeInTheDocument();

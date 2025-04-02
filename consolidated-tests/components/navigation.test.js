@@ -28,7 +28,7 @@ describe('Navigation', () => {
     // Find all navigation elements (desktop navigation)
     const navigation = screen.getAllByRole('navigation')[0]; // Get the desktop nav
     // Find all links inside the navigation element (excluding dropdown content)
-    const headerLinks = navigation.querySelectorAll(':scope > ul > li > a');
+    const headerLinks = navigation.querySelectorAll(':scope > ul > li > a, :scope > ul > li > button');
     
     // Check that we have the right number of links (Features, Use Cases, Integrations, Contact)
     expect(headerLinks.length).toBe(4);
@@ -43,15 +43,13 @@ describe('Navigation', () => {
   it('has correct href attributes for anchor links', () => {
     // Find the navigation element (desktop navigation)
     const navigation = screen.getAllByRole('navigation')[0]; // Get the desktop nav
-    // Find all links inside the navigation element (excluding dropdown content)
+    // Find all anchor links inside the navigation element
     const headerLinks = navigation.querySelectorAll(':scope > ul > li > a');
     
     // Check they point to the right sections
     expect(headerLinks[0]).toHaveAttribute('href', '#features');
     expect(headerLinks[1]).toHaveAttribute('href', '#use-cases');
-    // Integrations is a dropdown trigger with # href
-    expect(headerLinks[2]).toHaveAttribute('href', '#');
-    expect(headerLinks[3]).toHaveAttribute('href', '#contact');
+    expect(headerLinks[2]).toHaveAttribute('href', '#contact');
   });
   
   // For a more complete test, you could use jest-dom to mock window.location
