@@ -6,26 +6,11 @@
 import '@testing-library/jest-dom';
 import { TextDecoder, TextEncoder } from 'util';
 
+// Import Web API mocks
+import './consolidated-tests/__mocks__/web-api';
+
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
-
-// Add Request and Response globals
-global.Request = class Request {
-  constructor(input, init) {
-    this.url = input;
-    this.method = init?.method || 'GET';
-    this.headers = init?.headers || {};
-    this.body = init?.body;
-  }
-};
-
-global.Response = class Response {
-  constructor(body, init) {
-    this.body = body;
-    this.status = init?.status || 200;
-    this.headers = init?.headers || {};
-  }
-};
 
 // Mock Next.js router
 jest.mock('next/router', () => ({
