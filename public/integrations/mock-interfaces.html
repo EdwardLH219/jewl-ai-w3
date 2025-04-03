@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { margin: 0; padding: 0; }
+    .interface-container { width: 600px; height: 400px; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Dropbox Interface -->
+  <div id="dropbox" class="interface-container bg-white p-6">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-[#0061FF] rounded flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2L6 7l6 5-6 5 6 5 6-5-6-5 6-5z"/>
+          </svg>
+        </div>
+        <h2 class="ml-3 text-xl font-semibold">Dropbox Files</h2>
+      </div>
+      <div class="flex space-x-2">
+        <button class="px-4 py-2 text-sm bg-[#0061FF] text-white rounded-lg">Upload</button>
+      </div>
+    </div>
+    <div class="relative">
+      <input type="text" placeholder="Search files..." class="w-full px-4 py-2 border rounded-lg mb-4">
+    </div>
+    <div class="space-y-3">
+      <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4z"/>
+        </svg>
+        <span class="ml-3">Q4 Financial Report.pdf</span>
+      </div>
+      <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4z"/>
+        </svg>
+        <span class="ml-3">Project Proposal.docx</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SharePoint Interface -->
+  <div id="sharepoint" class="interface-container bg-white p-6">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-[#0078D4] rounded flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 6v12h18V6H3zm16 10H5V8h14v8z"/>
+          </svg>
+        </div>
+        <h2 class="ml-3 text-xl font-semibold">SharePoint Sites</h2>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="p-4 border rounded-lg">
+        <h3 class="font-medium mb-2">Marketing Team</h3>
+        <p class="text-sm text-gray-500">12 documents</p>
+      </div>
+      <div class="p-4 border rounded-lg">
+        <h3 class="font-medium mb-2">Product Team</h3>
+        <p class="text-sm text-gray-500">8 documents</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Google Docs Interface -->
+  <div id="googledocs" class="interface-container bg-white p-6">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-[#4285F4] rounded flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4z"/>
+          </svg>
+        </div>
+        <h2 class="ml-3 text-xl font-semibold">Google Docs</h2>
+      </div>
+    </div>
+    <div class="border rounded-lg p-4">
+      <div class="prose max-w-none">
+        <h1>Project Overview</h1>
+        <p>This document outlines the key objectives...</p>
+      </div>
+      <div class="mt-4 flex items-center text-sm text-gray-500">
+        <span>Last edited by John Doe</span>
+        <span class="mx-2">•</span>
+        <span>2 hours ago</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Interface -->
+  <div id="whatsapp" class="interface-container bg-[#128C7E] p-6">
+    <div class="bg-white rounded-lg h-full p-4">
+      <div class="flex items-center space-x-3 border-b pb-4">
+        <div class="w-10 h-10 bg-[#25D366] rounded-full flex items-center justify-center">
+          <span class="text-white font-bold">J</span>
+        </div>
+        <div>
+          <h3 class="font-medium">Jewl Assistant</h3>
+          <p class="text-sm text-gray-500">Online</p>
+        </div>
+      </div>
+      <div class="py-4 space-y-4">
+        <div class="flex justify-end">
+          <div class="bg-[#DCF8C6] rounded-lg p-3 max-w-[80%]">
+            Find the latest sales report
+          </div>
+        </div>
+        <div class="flex">
+          <div class="bg-white border rounded-lg p-3 max-w-[80%]">
+            I found "Q4 Sales Report.pdf". Would you like me to summarize it?
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slack Interface -->
+  <div id="slack" class="interface-container bg-[#4A154B] p-6">
+    <div class="bg-white rounded-lg h-full p-4">
+      <div class="flex items-center space-x-3 border-b pb-4">
+        <div class="w-10 h-10 bg-[#4A154B] rounded flex items-center justify-center">
+          <span class="text-white font-bold">J</span>
+        </div>
+        <div>
+          <h3 class="font-medium">#general</h3>
+          <p class="text-sm text-gray-500">with Jewl Bot</p>
+        </div>
+      </div>
+      <div class="py-4 space-y-4">
+        <div class="flex items-start space-x-3">
+          <div class="w-8 h-8 bg-[#4A154B] rounded flex items-center justify-center">
+            <span class="text-white text-sm">J</span>
+          </div>
+          <div>
+            <p class="text-sm font-medium">Jewl Bot</p>
+            <div class="mt-1 p-3 bg-gray-100 rounded-lg">
+              Here's what I found in the latest meeting notes...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Discord Interface -->
+  <div id="discord" class="interface-container bg-[#36393F] p-6">
+    <div class="text-white">
+      <div class="flex items-center space-x-3 border-b border-gray-700 pb-4">
+        <div class="w-10 h-10 bg-[#5865F2] rounded-full flex items-center justify-center">
+          <span class="font-bold">J</span>
+        </div>
+        <div>
+          <h3 class="font-medium">#documents</h3>
+          <p class="text-sm text-gray-400">Jewl Bot is here to help</p>
+        </div>
+      </div>
+      <div class="py-4 space-y-4">
+        <div class="flex items-start space-x-3">
+          <div class="w-8 h-8 bg-[#5865F2] rounded-full flex items-center justify-center">
+            <span class="text-sm">J</span>
+          </div>
+          <div>
+            <p class="text-sm font-medium">Jewl Bot</p>
+            <div class="mt-1 p-3 bg-[#2F3136] rounded-lg">
+              I've analyzed the document. Here are the key points...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Telegram Interface -->
+  <div id="telegram" class="interface-container bg-[#26A5E4] p-6">
+    <div class="bg-white rounded-lg h-full p-4">
+      <div class="flex items-center space-x-3 border-b pb-4">
+        <div class="w-10 h-10 bg-[#26A5E4] rounded-full flex items-center justify-center">
+          <span class="text-white font-bold">J</span>
+        </div>
+        <div>
+          <h3 class="font-medium">Jewl Assistant</h3>
+          <p class="text-sm text-gray-500">Bot</p>
+        </div>
+      </div>
+      <div class="py-4 space-y-4">
+        <div class="flex justify-end">
+          <div class="bg-[#EEFFDE] rounded-lg p-3 max-w-[80%]">
+            /search project roadmap
+          </div>
+        </div>
+        <div class="flex">
+          <div class="bg-white border rounded-lg p-3 max-w-[80%]">
+            📄 Found 3 documents matching "project roadmap"...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

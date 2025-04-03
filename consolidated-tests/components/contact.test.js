@@ -22,7 +22,7 @@ describe('Contact Section', () => {
     // Check for form fields
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/how would you use jewl\.ai\?/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/how would you use jewl\?/i)).toBeInTheDocument();
     
     // Check for submit button
     expect(screen.getByRole('button', { name: /request access/i })).toBeInTheDocument();
@@ -34,7 +34,7 @@ describe('Contact Section', () => {
     // Get form inputs
     const nameInput = screen.getByLabelText(/name/i);
     const emailInput = screen.getByLabelText(/email/i);
-    const messageInput = screen.getByLabelText(/how would you use jewl\.ai\?/i);
+    const messageInput = screen.getByLabelText(/how would you use jewl\?/i);
     
     // Fill out the form
     fireEvent.change(nameInput, { target: { value: 'John Doe' } });
@@ -53,7 +53,7 @@ describe('Contact Section', () => {
     // Get form inputs and button
     const nameInput = screen.getByLabelText(/name/i);
     const emailInput = screen.getByLabelText(/email/i);
-    const messageInput = screen.getByLabelText(/how would you use jewl\.ai\?/i);
+    const messageInput = screen.getByLabelText(/how would you use jewl\?/i);
     const submitButton = screen.getByRole('button', { name: /request access/i });
     
     // Fill out the form

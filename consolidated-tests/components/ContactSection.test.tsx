@@ -13,7 +13,7 @@ describe('ContactSection', () => {
     expect(screen.getByText(/get early access/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/how would you use jewl\.ai\?/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/how would you use jewl\?/i)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /request access/i })).toBeInTheDocument()
   })
 
@@ -29,7 +29,7 @@ describe('ContactSection', () => {
     // Check for validation errors from the browser's built-in form validation
     const nameInput = screen.getByLabelText(/name/i) as HTMLInputElement
     const emailInput = screen.getByLabelText(/email/i) as HTMLInputElement
-    const messageInput = screen.getByLabelText(/how would you use jewl\.ai\?/i) as HTMLTextAreaElement
+    const messageInput = screen.getByLabelText(/how would you use jewl\?/i) as HTMLTextAreaElement
 
     expect(nameInput.validity.valid).toBe(false)
     expect(emailInput.validity.valid).toBe(false)
@@ -40,7 +40,7 @@ describe('ContactSection', () => {
     render(<ContactSection />)
     const nameInput = screen.getByLabelText(/name/i)
     const emailInput = screen.getByLabelText(/email/i)
-    const messageInput = screen.getByLabelText(/how would you use jewl\.ai\?/i)
+    const messageInput = screen.getByLabelText(/how would you use jewl\?/i)
     const submitButton = screen.getByRole('button', { name: /request access/i })
 
     await act(async () => {
@@ -60,7 +60,7 @@ describe('ContactSection', () => {
     render(<ContactSection />)
     const nameInput = screen.getByLabelText(/name/i)
     const emailInput = screen.getByLabelText(/email/i)
-    const messageInput = screen.getByLabelText(/how would you use jewl\.ai\?/i)
+    const messageInput = screen.getByLabelText(/how would you use jewl\?/i)
     const submitButton = screen.getByRole('button', { name: /request access/i })
 
     await act(async () => {

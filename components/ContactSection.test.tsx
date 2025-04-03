@@ -6,13 +6,13 @@ import { act } from 'react-dom/test-utils'
 // @ts-ignore
 import ContactSection from './ContactSection'
 
-describe('ContactSection', () => {
+describe('Contact Section', () => {
   it('renders the contact form', () => {
     render(<ContactSection />)
     expect(screen.getByText(/get early access/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/how would you use jewl\.ai\?/i)).toBeInTheDocument()
+    expect(screen.getByLabelText('How would you use Jewl?')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /request access/i })).toBeInTheDocument()
   })
 
@@ -26,7 +26,7 @@ describe('ContactSection', () => {
     // Check for validation errors from the browser's built-in form validation
     const nameInput = screen.getByLabelText(/name/i) as HTMLInputElement
     const emailInput = screen.getByLabelText(/email/i) as HTMLInputElement
-    const messageInput = screen.getByLabelText(/how would you use jewl\.ai\?/i) as HTMLTextAreaElement
+    const messageInput = screen.getByLabelText('How would you use Jewl?') as HTMLTextAreaElement
 
     expect(nameInput.validity.valid).toBe(false)
     expect(emailInput.validity.valid).toBe(false)
@@ -38,7 +38,7 @@ describe('ContactSection', () => {
     render(<ContactSection />)
     const nameInput = screen.getByLabelText(/name/i)
     const emailInput = screen.getByLabelText(/email/i)
-    const messageInput = screen.getByLabelText(/how would you use jewl\.ai\?/i)
+    const messageInput = screen.getByLabelText('How would you use Jewl?')
     const submitButton = screen.getByRole('button', { name: /request access/i })
 
     await user.type(nameInput, 'John Doe')
@@ -61,7 +61,7 @@ describe('ContactSection', () => {
     render(<ContactSection />)
     const nameInput = screen.getByLabelText(/name/i)
     const emailInput = screen.getByLabelText(/email/i)
-    const messageInput = screen.getByLabelText(/how would you use jewl\.ai\?/i)
+    const messageInput = screen.getByLabelText('How would you use Jewl?')
     const submitButton = screen.getByRole('button', { name: /request access/i })
 
     await user.type(nameInput, 'John Doe')
