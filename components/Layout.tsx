@@ -8,7 +8,10 @@ import {
   WhatsAppIcon, 
   SlackIcon, 
   TwitterIcon, 
-  LinkedInIcon 
+  LinkedInIcon,
+  GoogleDocsIcon,
+  DiscordIcon,
+  TelegramIcon
 } from '@/utils/integration-icons';
 import {
   DropdownMenu,
@@ -181,6 +184,12 @@ export default function Layout({ children }: LayoutProps) {
                         </span>
                         SharePoint
                       </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <span className="w-5 h-5 mr-2 flex-shrink-0">
+                          <GoogleDocsIcon size={20} className="text-[#4285F4]" />
+                        </span>
+                        Google Docs
+                      </DropdownMenuItem>
                     </div>
                     <div className="px-2 py-2">
                       <h4 className="text-sm font-semibold text-gray-800 px-2">Chat Interfaces</h4>
@@ -195,6 +204,18 @@ export default function Layout({ children }: LayoutProps) {
                           <SlackIcon size={20} className="text-[#4A154B]" />
                         </span>
                         Slack
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <span className="w-5 h-5 mr-2 flex-shrink-0">
+                          <DiscordIcon size={20} className="text-[#5865F2]" />
+                        </span>
+                        Discord
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <span className="w-5 h-5 mr-2 flex-shrink-0">
+                          <TelegramIcon size={20} className="text-[#26A5E4]" />
+                        </span>
+                        Telegram
                       </DropdownMenuItem>
                     </div>
                   </DropdownMenuContent>
@@ -267,6 +288,12 @@ export default function Layout({ children }: LayoutProps) {
                                 </span>
                                 SharePoint
                               </a>
+                              <a href="#" className="flex items-center py-2" onClick={handleLinkClick}>
+                                <span className="w-4 h-4 mr-2 flex-shrink-0">
+                                  <GoogleDocsIcon size={16} className="text-[#4285F4]" />
+                                </span>
+                                Google Docs
+                              </a>
                             </div>
                             <div className="py-2">
                               <h4 className="text-sm font-semibold text-gray-800 mb-2">Chat Interfaces</h4>
@@ -281,6 +308,18 @@ export default function Layout({ children }: LayoutProps) {
                                   <SlackIcon size={16} className="text-[#4A154B]" />
                                 </span>
                                 Slack
+                              </a>
+                              <a href="#" className="flex items-center py-2" onClick={handleLinkClick}>
+                                <span className="w-4 h-4 mr-2 flex-shrink-0">
+                                  <DiscordIcon size={16} className="text-[#5865F2]" />
+                                </span>
+                                Discord
+                              </a>
+                              <a href="#" className="flex items-center py-2" onClick={handleLinkClick}>
+                                <span className="w-4 h-4 mr-2 flex-shrink-0">
+                                  <TelegramIcon size={16} className="text-[#26A5E4]" />
+                                </span>
+                                Telegram
                               </a>
                             </div>
                           </div>
