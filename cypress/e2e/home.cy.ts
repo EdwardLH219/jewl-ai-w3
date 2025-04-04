@@ -4,7 +4,7 @@ describe('Home Page', () => {
   })
 
   it('displays the hero section', () => {
-    cy.findByRole('heading', { name: /welcome to jewl\.ai/i }).should('be.visible')
+    cy.findByRole('heading', { name: /access company jewels instantly/i }).should('be.visible')
     cy.findByText(/ai-powered document assistant/i).should('be.visible')
   })
 

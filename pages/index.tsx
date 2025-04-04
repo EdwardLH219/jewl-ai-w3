@@ -97,8 +97,8 @@ export default function Home() {
       <section id="home" className="py-32 md:py-40">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-bold tracking-tight mb-8">
-              Leave it to Jewl
+            <h1 className="font-bold tracking-tight mb-8 text-[4.5rem] md:text-[3.5rem]">
+              Access company jewels instantly
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 mb-10 max-w-3xl mx-auto">
               Jewl is an AI-powered document assistant that bridges search and intelligence: it doesn't just find documents, it delivers insights.
