@@ -9,7 +9,7 @@ describe('Home page', () => {
   
   it('renders the welcome heading', () => {
     const heading = screen.getByRole('heading', {
-      name: /leave it to jewl/i,
+      name: /access company jewels instantly/i,
     });
     
     expect(heading).toBeInTheDocument();
